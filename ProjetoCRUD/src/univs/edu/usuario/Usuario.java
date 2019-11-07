@@ -6,10 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 
-/**
- *
- * @author MATHEUS-DANTAS
- */
 @Entity
 public class Usuario {
     
