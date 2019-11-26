@@ -37,6 +37,7 @@ public class UsuarioDAO {
          sessao = HibernateUtil.getSessionFactory().openSession();
         transacao = sessao.beginTransaction();
         Usuario usuario = (Usuario) sessao.createCriteria(Usuario.class).add(Restrictions.eq("idUsuario", id)).uniqueResult();
+        sessao.close();
         return usuario;
         
      }
@@ -47,5 +48,12 @@ public class UsuarioDAO {
         return usuarios;
         
      }
+      public void editarUsuario(Usuario usuario){
+          sessao = HibernateUtil.getSessionFactory().openSession();
+        transacao = sessao.beginTransaction();
+        sessao.update(usuario);
+        transacao.commit();
+        sessao.close();
+      }
      
 }

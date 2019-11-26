@@ -9,10 +9,6 @@ import javax.swing.JOptionPane;
 import univs.edu.usuario.Usuario;
 import univs.edu.usuario.UsuarioDAO;
 
-/**
- *
- * @author LABORATORIO 01
- */
 public class TelaUsuario extends javax.swing.JFrame {
     
  Usuario usuario = new Usuario();
@@ -28,6 +24,11 @@ public void limparCampos(){
     tfUsuario.setText("");
     tfSenha.setText("");
     
+}
+public void atualizarCamposConsulata(){
+    tfUsuario.setText(usuario.getLogin());
+    tfSenha.setText(usuario.getSenha());
+    tfNome.setText(usuario.getNomeUsuario());
 }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,8 +77,18 @@ public void limparCampos(){
         });
 
         jButton2.setText("Pesquisar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Voltar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Limpar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -153,6 +164,7 @@ public void limparCampos(){
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -167,10 +179,28 @@ public void limparCampos(){
             usuario.setNomeUsuario(tfNome.getText());
             usuario.setLogin(tfUsuario.getText());
             usuario.setSenha(tfSenha.getText());
+            if(usuario.getIdUsuario()!=0){
+                dao.editarUsuario(usuario);
+                JOptionPane.showMessageDialog(null, "Usuario editado!");
+            }else{
             dao.salvar(usuario);
+            JOptionPane.showMessageDialog(null, "Usuario cadastrado !");
+            }
             limparCampos();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        ConsultaUsuario consultar = new ConsultaUsuario();
+        consultar.setVisible(true);
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        ConsultaUsuario consulta = new ConsultaUsuario();
+        consulta.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
